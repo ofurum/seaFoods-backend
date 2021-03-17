@@ -5,7 +5,7 @@ const User = require('../models/userSignUp');
 const signUp = async  (req, res) => {
     
     let password = bcrypt.hashSync(req.body.password, 10);
-     User.findOne({email:req.body.email})
+      User.findOne({email:req.body.email})
      .then(user => {
          if(user){
                return res.status(400).send({ message: "user already exists" });
@@ -18,10 +18,16 @@ const signUp = async  (req, res) => {
             address: req.body.address,
             role: req.body.role,
           }).then(newuser => {
-              return res.status(201).send({ message: 'user created successfully'})
+              return res.status(201).json({ message: 'user created successfully',
+               _id: newuser._id,
+              name: newuser.name,
+              phone: newuser.phone,
+              address: newuser.address,
+              role: newuser.role
+            })
           })
      }).catch(error =>{
-        return res.status(400).send({ message: "Could not save" });
+        return res.status(400).json({ message: "Could not save" });
     })
 
    
@@ -40,9 +46,9 @@ const login = async (req, res) =>{
     }
     )
     try{
-        if (!findUser) return res.status(400).send({ message: "Wrong email address" });
-        if(!password) return res.status(400).send({ message: "Incorrect Password" });
-        return res.status(200).send({ 
+        if (!findUser) return res.status(400).json({ message: "Wrong email address" });
+        if(!password) return res.status(400).json({ message: "Incorrect Password" });
+        return res.status(200).json({ 
             message: "LogIn successful",
             token,
             _id: findUser._id,
@@ -52,7 +58,7 @@ const login = async (req, res) =>{
             role: findUser.role
     })
     }catch(error){
-         return  res.status(400).send({ message: "auth failed"})
+         return  res.status(400).json({ message: "auth failed"})
     }
 }
 

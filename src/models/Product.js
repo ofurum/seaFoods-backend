@@ -19,13 +19,17 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
-    specification: {
-        type: Schema.Types.Mixed
-    },
-    category: {
+    ownedBy:{
         type: Schema.Types.ObjectId,
-        ref: 'Category'
-    }
+        ref: 'Wholesaler'
+    },
+    // specification: {
+    //     type: Schema.Types.Mixed
+    // },
+    // category: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Category'
+    // }
 });
 
 const ProductModel = mongoose.model('Product', ProductSchema);

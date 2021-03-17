@@ -37,6 +37,10 @@ const WholesalerSchema = new Schema({
     type: String,
     default: "admin",
   },
+  image:{
+     type: String,
+     required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now,
