@@ -1,0 +1,10 @@
+.heaer {
+    padding: auto;
+    border: 2px solid black;
+    height: 100vh;
+     /* background: url("https://image.shutterstock.com/z/stock-photo-fresh-fish-and-seafood-arrangement-on-black-stone-background-594316298.jpg") */
+}
+companies {
+    border: 2px solid black;
+    height: 300px;
+}
