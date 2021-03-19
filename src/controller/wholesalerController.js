@@ -32,7 +32,7 @@ const adminLogin = async (req, res) => {
     }, 
     'MY_SECRET_KEY',
     {
-        expiresIn: '1h'
+        expiresIn: '24h'
     }
     )
     try{

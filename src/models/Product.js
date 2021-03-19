@@ -26,10 +26,9 @@ const ProductSchema = new Schema({
     // specification: {
     //     type: Schema.Types.Mixed
     // },
-    // category: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Category'
-    // }
+    category: {
+        type: String,
+    }
 });
 
 const ProductModel = mongoose.model('Product', ProductSchema);

@@ -8,16 +8,19 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.send('Home');
 });
-router.get('/products', ProductController.getProduct)
-//get all Product
+//Products route 
+router.get('/products', ProductController.getProducts);
+router.get('/products/:id', ProductController.getProductsById);
+router.patch('/products', ProductController.updateProduct)
+router.delete('/products/:id', ProductController.deleteProduct)
 
 //route to create product
-router.post('/products',verifyUser,ProductController.createProduct)
+router.post('/products',verifyUser,ProductController.createProduct);
 
-//user route
+//user/wholesaler route
 router.post('/users', userController.signUp);
 router.post('/login', userController.login);
-router.post("/admin-signup", adminController.adminSignUp);
-router.post('/admin-login', adminController.adminLogin);
+router.post("/admin/signup", adminController.adminSignUp);
+router.post('/admin/login', adminController.adminLogin);
 
 module.exports = router;
