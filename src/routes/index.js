@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 //Products route 
 router.get('/products', ProductController.getProducts);
 router.get('/products/:id', ProductController.getProductsById);
-router.patch('/products', ProductController.updateProduct)
+router.patch('/products/:id', ProductController.updateProduct)
 router.delete('/products/:id', ProductController.deleteProduct)
 
 //route to create product

@@ -32,10 +32,12 @@ exports.getProductsById = async (req, res) => {
 
 exports.updateProduct = (req, res) => {
     Product.findByIdAndUpdate(req.params.id, req.body)
-    .then( () =>{
-         const product = Product.findById(req.params.id)
+    .then(() =>{
+        Product.findById(req.params.id)
         .then((product) =>{
-            return res.status(200).json({ message: 'product updated', product})
+            return res
+              .status(200)
+              .json({ message: "product updated", product });
         }).catch((error) => {
             return res.status(400).json({ message: "cannot update product"})
         })
