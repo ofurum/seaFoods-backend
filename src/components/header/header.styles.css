@@ -1,0 +1,9 @@
+.nav-item {
+    font-weight: bold;
+}
+.nav-item:hover{
+    border-bottom: 3px solid black;
+}
+I {
+    font-size: 18px;
+}
