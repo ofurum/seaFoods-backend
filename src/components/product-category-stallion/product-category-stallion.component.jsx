@@ -4,7 +4,6 @@ import './product-category-stallion.styles.css'
 const StallionProductCategory = () => (
     <div>
         <ul class="list-group">
-            <li class="list-group-item disabled" aria-disabled="true">A disabled item</li>
             <li class="list-group-item">CATEGORY</li>
             <li class="list-group-item">HORSE  MACKEREL</li>
             <li class="list-group-item">MACKEREL</li>

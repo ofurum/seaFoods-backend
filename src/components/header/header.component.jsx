@@ -5,7 +5,7 @@ import  Logo  from '../../assets/seafood Ex.png'
 
 const Header = () => (
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <Link className='navbar-brand' to='/'>
         <img src={Logo} alt="" width='100' height='100'/>

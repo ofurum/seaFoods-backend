@@ -31,6 +31,7 @@ class Jomadirectory extends React.Component {
     render() {
         return(
         <div className='joma-directory'>
+           
            {
                this.state.sections.map(({title, imageUrl, id}) => (
                 <Joma key={id} title={title} imageUrl={imageUrl} />
