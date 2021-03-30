@@ -1,12 +1,14 @@
 const express = require('express');
 const mongoose = require('./src/database/connecton')
 const routes = require("./src/routes");
+const cors = require("cors");
 const app = express();
 app.use(express.json())
+app.use(cors({origin:"*"}))
 
 app.use('/', routes)
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const db = mongoose.connection;
 
 db.on("error", () => {

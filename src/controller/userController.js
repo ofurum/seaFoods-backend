@@ -1,36 +1,35 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userSignUp');
+  
+const allUsers = async (req, res) => {
+    const users = await User.find()
+    if(!users) return res.status(400).json({ message: "users not found"})
 
+    const getUsers = [...users];
+    return res.status(200).json({ data: getUsers });
+}
 const signUp = async  (req, res) => {
+    try{
+
     
     let password = bcrypt.hashSync(req.body.password, 10);
-      User.findOne({email:req.body.email})
-     .then(user => {
-         if(user){
-               return res.status(400).send({ message: "user already exists" });
-         }
-          User.create({
-            name: req.body.name,
-            email: req.body.email,
-            password: password,
-            phone: req.body.phone,
-            address: req.body.address,
-            role: req.body.role,
-          }).then(newuser => {
-              return res.status(201).json({ message: 'user created successfully',
-               _id: newuser._id,
-              name: newuser.name,
-              phone: newuser.phone,
-              address: newuser.address,
-              role: newuser.role
-            })
-          })
-     }).catch(error =>{
-        return res.status(400).json({ message: "Could not save" });
-    })
-
-   
+    let user = await User.findOne({ email: req.body.email });
+    if(user) return res.status(400).send({ message: "user already exists" });
+    user = await User.create({
+      fullName: req.body.fullName,
+      email: req.body.email,
+      password: password,
+      phone: req.body.phone,
+      address: req.body.address,
+      role: req.body.role,
+    });
+    if(!user) return  res.status(500).send({ message: "coildn't create user" });
+    return res.status(201).send({ message: "user created",user });
+     
+}catch(error){
+  return res.status(400).json({ message: error.toString()});
+}
 }
 
 const login = async (req, res) =>{
@@ -52,15 +51,15 @@ const login = async (req, res) =>{
             message: "LogIn successful",
             token,
             _id: findUser._id,
-            name: findUser.name,
+            fullName: findUser.fullName,
             phone: findUser.phone,
             address: findUser.address,
             role: findUser.role
     })
     }catch(error){
-         return  res.status(400).json({ message: "auth failed"})
+         return  res.status(400).json({ message: error.toString()})
     }
 }
 
 
-module.exports = {signUp, login};
+module.exports = {signUp, login, allUsers};

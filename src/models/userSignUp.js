@@ -3,7 +3,7 @@ const mongoose = require('../database/connecton');
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
-  name: {
+  fullName: {
     type: String,
     required: true,
   },
