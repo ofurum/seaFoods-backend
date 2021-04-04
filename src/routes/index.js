@@ -22,7 +22,6 @@ router.delete('/products/:id', ProductController.deleteProduct)
 router.post(
   "/products",
   uploadImage,
-  verifyAdmin,
   ProductController.createProduct
 );
 

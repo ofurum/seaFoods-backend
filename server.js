@@ -4,7 +4,18 @@ const routes = require("./src/routes");
 const cors = require("cors");
 const app = express();
 app.use(express.json())
-app.use(cors({origin:"*"}))
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-type, Accept, Authorization"
+  );
+  if (req.method === "OPTION") {
+    res.header("Access-Control-Allow-Methods", "*");
+    return res.status(200).json({});
+  }
+  next();
+});
 
 app.use('/', routes)
 

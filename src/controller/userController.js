@@ -9,10 +9,8 @@ const allUsers = async (req, res) => {
     const getUsers = [...users];
     return res.status(200).json({ data: getUsers });
 }
-const signUp = async  (req, res) => {
+const signUp = async(req, res) => {
     try{
-
-    
     let password = bcrypt.hashSync(req.body.password, 10);
     let user = await User.findOne({ email: req.body.email });
     if(user) return res.status(400).send({ message: "user already exists" });
@@ -33,6 +31,7 @@ const signUp = async  (req, res) => {
 }
 
 const login = async (req, res) =>{
+    try{
     const findUser = await User.findOne({email: req.body.email})
     let password = await bcrypt.compareSync(req.body.password, findUser.password);
     let token = jwt.sign({
@@ -44,7 +43,6 @@ const login = async (req, res) =>{
         expiresIn: '24h'
     }
     )
-    try{
         if (!findUser) return res.status(400).json({ message: "Wrong email address" });
         if(!password) return res.status(400).json({ message: "Incorrect Password" });
         return res.status(200).json({ 

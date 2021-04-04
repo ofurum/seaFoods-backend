@@ -2,18 +2,20 @@ const Product = require('../models/Product');
 
 exports.createProduct = (req, res) => {
   
-     //req.body.image = req.file;
-
+     req.body.image = [];
+     req.files.map(file => {
+         req.body.image.push(file.path)
+        
+     })
+      console.log(req.files)
     const product = new Product({
       name: req.body.name,
-      image: req.file,
+      image: req.body.image,
       price: req.body.price,
       description: req.body.description,
       category: req.body.category,
-      ownedBy: req.wholesaler.userID,
+    //   ownedBy: req.wholesaler.userID,
     });
-     console.log(req.image);
-     console.log('file', req.file)
     product.save()
     .then(newproduct => {
         return res.status(201).json({ message: "Product successfully created!", product})

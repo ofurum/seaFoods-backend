@@ -2,7 +2,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: (req, files, cb) => {
-    cb(null, "./uploads");
+    cb(null, "./public/uploads/");
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname + "-" + Date.now());
@@ -10,17 +10,17 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    if(file.minetype === 'image/jpeg' || file.minetype === 'image/jpg' || file.minetype === 'image/png') {
-        cb(null, true)
+    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png') {
+       cb(null, true)
     }else{
         cb(null, false)
     }
-   // return cb(new Error("I don't have a clue!"));
+   return cb(new Error("I don't have a clue!"));
 };
 
 const upload =  multer({
   storage,
   fileFilter,
-}).single('image');
+}).array('image', 2);
 
 module.exports = upload;
