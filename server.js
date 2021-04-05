@@ -3,8 +3,6 @@ const mongoose = require('./src/database/connecton')
 const routes = require("./src/routes");
 const cors = require("cors");
 const app = express();
-const path = require("path");
-require("dotenv").config({ path: path.resolve(process.cwd(), ".env") });
 
 
 console.log(process.env.API_KEY);
