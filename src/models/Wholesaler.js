@@ -3,7 +3,7 @@ const mongoose = require("../database/connecton");
 const Schema = mongoose.Schema;
 
 const WholesalerSchema = new Schema({
-  name: {
+  fullName: {
     type: String,
     required: true,
   },
@@ -36,10 +36,6 @@ const WholesalerSchema = new Schema({
   role: {
     type: String,
     default: "admin",
-  },
-  image:{
-     type: String,
-     required: true
   },
   createdAt: {
     type: Date,

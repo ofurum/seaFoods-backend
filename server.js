@@ -3,7 +3,13 @@ const mongoose = require('./src/database/connecton')
 const routes = require("./src/routes");
 const cors = require("cors");
 const app = express();
+const path = require("path");
+require("dotenv").config({ path: path.resolve(process.cwd(), ".env") });
+
+
+console.log(process.env.API_KEY);
 app.use(express.json())
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -18,6 +24,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', routes)
+
 
 const port = process.env.PORT || 8000;
 const db = mongoose.connection;

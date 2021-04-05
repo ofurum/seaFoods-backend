@@ -1,28 +1,48 @@
 const Product = require('../models/Product');
+const cloudinary = require("../config/cloundinaryconfig")
 
 exports.createProduct = (req, res) => {
-  
-     req.body.image = [];
-     req.files.map(file => {
-         req.body.image.push(file.path)
-        
-     })
-      console.log(req.files)
-    const product = new Product({
-      name: req.body.name,
-      image: req.body.image,
-      price: req.body.price,
-      description: req.body.description,
-      category: req.body.category,
-    //   ownedBy: req.wholesaler.userID,
-    });
-    product.save()
-    .then(newproduct => {
-        return res.status(201).json({ message: "Product successfully created!", product})
-    }).catch(error => {
-        return res.status(400).json({ message: error.message })
-    })
+  const promises = [];
+  req.files.map((file) => {
+    console.log(file.path);
+    promises.push(
+      cloudinary.uploader
+        .upload(file.path)
+        .then((results) => results.secure_url)
+        .catch((err) => {
+          err.message;
+        })
+    );
+  });
 
+  return Promise.all(promises).then((results) => {
+        const urls = []
+        results.map(result => {
+          urls.push(result);
+        })
+      console.log(urls)
+       const product = new Product({
+         name: req.body.name,
+         image: urls,
+         price: req.body.price,
+         description: req.body.description,
+         category: req.body.category,
+         //   ownedBy: req.wholesaler.userID,
+       });
+      return product 
+         .save()
+         .then((newproduct) => {
+           return res
+             .status(201)
+             .json({ message: "Product successfully created!", product });
+         })
+         .catch((error) => {
+           return res.status(400).json({ message: error.message });
+         });
+  }).catch(err => {
+      console.log(err.message)
+  });
+   req.body.image = images;
 }
 
 exports.getProducts = async (req, res) => {

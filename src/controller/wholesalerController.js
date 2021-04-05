@@ -5,8 +5,9 @@ const adminSignUp = async (req, res) => {
      let singleAdmin = await admin.findOne({ email: req.body.email })
       if (singleAdmin)return res.status(400).send({ message: "admin already exists" });
       let password = bcrypt.hashSync(req.body.password, 10);
+      
        const adminDetails = await admin.create({
-         name: req.body.name,
+         fullName: req.body.fullName,
          email: req.body.email,
          password: password,
          address: req.body.address,
