@@ -5,7 +5,6 @@ const cors = require("cors");
 const app = express();
 
 
-console.log(process.env.API_KEY);
 app.use(express.json())
 
 app.use((req, res, next) => {
