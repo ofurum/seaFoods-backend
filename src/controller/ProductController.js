@@ -59,12 +59,11 @@ exports.getProductsById = async (req, res) => {
 
 exports.searchProducts = (req, res) => {
     const searchField = req.query.name;
-    Product.find({name:{$regex: searchField, $options: '$c'}})
+    Product.find({name:{$regex: searchField, $options: '$i'}})
     .then(data => {
-        console.log(data)
         res.json({message: 'product found!', data})
     }).catch(error => {
-        res.status(400).json(error.message)
+        res.status(400).json({message: "product not found!"})
     })
 }         
 
