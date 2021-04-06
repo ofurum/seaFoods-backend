@@ -27,7 +27,7 @@ exports.createProduct = (req, res) => {
          price: req.body.price,
          description: req.body.description,
          category: req.body.category,
-         //   ownedBy: req.wholesaler.userID,
+        ownedBy: req.wholesaler.userID,
        });
       return product 
          .save()
@@ -40,9 +40,8 @@ exports.createProduct = (req, res) => {
            return res.status(400).json({ message: error.message });
          });
   }).catch(err => {
-      console.log(err.message)
+      return err.message
   });
-   req.body.image = images;
 }
 
 exports.getProducts = async (req, res) => {

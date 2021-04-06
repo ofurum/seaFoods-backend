@@ -5,6 +5,7 @@ const ProductController = require("../controller/productController")
 const verifyAdmin = require("../middleware/verify");
 const verifyUser = require("../middleware/verify")
 const uploadImage = require('../middleware/upload')
+const singleUpload = require('../middleware/singleImageUpload')
 const router = express.Router();
 
 
@@ -21,6 +22,7 @@ router.delete('/products/:id', ProductController.deleteProduct)
 //route to create product
 router.post(
   "/products",
+  verifyUser,
   uploadImage,
   ProductController.createProduct
 );
@@ -28,7 +30,7 @@ router.post(
 //user && wholesaler route
 router.post('/users', userController.signUp);
 router.post('/login', userController.login);
-router.post("/admin/signup", adminController.adminSignUp);
+router.post("/admin/signup", singleUpload, adminController.adminSignUp);
 router.post('/admin/login', adminController.adminLogin);
 
 module.exports = router;

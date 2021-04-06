@@ -1,11 +1,15 @@
 const bcrypt = require('bcrypt');
 const admin = require('../models/Wholesaler')
 const jwt = require("jsonwebtoken");
+const cloudinary = require("../config/cloundinaryconfig");
+
 const adminSignUp = async (req, res) => {
+    try{
      let singleAdmin = await admin.findOne({ email: req.body.email })
       if (singleAdmin)return res.status(400).send({ message: "admin already exists" });
       let password = bcrypt.hashSync(req.body.password, 10);
       
+      const result = await cloudinary.uploader.upload(req.file.path)
        const adminDetails = await admin.create({
          fullName: req.body.fullName,
          email: req.body.email,
@@ -13,11 +17,10 @@ const adminSignUp = async (req, res) => {
          address: req.body.address,
          companyName: req.body.companyName,
          phone: req.body.phone,
-         profileImg: req.body.profileImg,
+         profileImg: result.secure_url,
          role: req.body.role,
        })
        
-       try{
            if(adminDetails) return res.status(201).send({ message: 'admin successfully created'})
        }catch(error){
            return res.status(400).send({ message: "could not save"})
@@ -43,10 +46,11 @@ const adminLogin = async (req, res) => {
             message: "LogIn successful",
             token,
             _id: findUser._id,
-            name: findUser.name,
+            fullName: findUser.fullName,
             phone: findUser.phone,
             address: findUser.address,
             companyName: findUser.companyName,
+            profileImg: findUser.profileImg,
             role: findUser.role
     })
     }catch(error){
