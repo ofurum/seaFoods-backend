@@ -57,6 +57,17 @@ exports.getProductsById = async (req, res) => {
     return res.json(product);
 }
 
+exports.searchProducts = (req, res) => {
+    const searchField = req.query.name;
+    Product.find({name:{$regex: searchField, $options: '$c'}})
+    .then(data => {
+        console.log(data)
+        res.json({message: 'product found!', data})
+    }).catch(error => {
+        res.status(400).json(error.message)
+    })
+}         
+
 exports.updateProduct = (req, res) => {
     Product.findByIdAndUpdate(req.params.id, req.body)
     .then(() =>{

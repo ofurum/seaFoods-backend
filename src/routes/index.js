@@ -16,6 +16,7 @@ router.get('/users', userController.allUsers)
 //Products route 
 router.get('/products', ProductController.getProducts);
 router.get('/products/:id', ProductController.getProductsById);
+router.get('/search', ProductController.searchProducts)
 router.patch('/products/:id', ProductController.updateProduct)
 router.delete('/products/:id', ProductController.deleteProduct)
 
