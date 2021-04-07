@@ -3,7 +3,7 @@ const Cart = require('../models/Cart')
 exports.addToCart = async(req, res) => {
        const { productId, quantity, name, price } = req.body;
 
-       const userId = "6051d46b05ffdd16b808f75a";
+       const userId = "60665a6cf4695c4b24478a3a";
     
        try{
           let cart = await Cart.findOne({ userId });
@@ -61,6 +61,6 @@ exports.addToCart = async(req, res) => {
           }
 
        }catch(error){
-           res.status(500).json({message: 'Something went wrong'})
+           res.status(500).json(error.message)
        }
 }

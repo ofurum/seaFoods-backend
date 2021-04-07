@@ -5,7 +5,8 @@ const ProductController = require("../controller/productController")
 const verifyAdmin = require("../middleware/verify");
 const verifyUser = require("../middleware/verify")
 const uploadImage = require('../middleware/upload')
-const singleUpload = require('../middleware/singleImageUpload')
+const singleUpload = require('../middleware/singleImageUpload');
+const CartContoller = require('../controller/cartController')
 const router = express.Router();
 
 
@@ -27,6 +28,7 @@ router.post(
   uploadImage,
   ProductController.createProduct
 );
+router.post("/add-to-cart", CartContoller.addToCart);
 
 //user && wholesaler route
 router.post('/users', userController.signUp);
