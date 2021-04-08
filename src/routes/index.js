@@ -33,6 +33,7 @@ router.post("/add-to-cart", CartContoller.addToCart);
 //user && wholesaler route
 router.post('/users', userController.signUp);
 router.post('/login', userController.login);
+router.delete('/user/:id', userController.deleteUser);
 router.post("/admin/signup", singleUpload, adminController.adminSignUp);
 router.post('/admin/login', adminController.adminLogin);
 

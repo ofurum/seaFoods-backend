@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('./src/database/connecton')
 const routes = require("./src/routes");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./src/config/swagger");
 const cors = require("cors");
 const app = express();
 
@@ -19,6 +21,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+    
+// use swagger-Ui-express for your app documentation endpoint
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/', routes)
 

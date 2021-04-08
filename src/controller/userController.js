@@ -59,5 +59,15 @@ const login = async (req, res) =>{
     }
 }
 
+const deleteUser = (req, res) => {
+ try{
+    User.findOneAndDelete();
+    res.status(200).json({message: 'user deleted'})
+}catch(error){
+    res.status(400).json(error.message)
+}
 
-module.exports = {signUp, login, allUsers};
+}
+
+
+module.exports = {signUp, login, allUsers, deleteUser};
